@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Eric\Documents\Visual Studio 2013\Projects\ice-maze\ice-maze\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Eric\Documents\Visual Studio 2013\Projects\ice-maze\ice-maze\glm;C:\Users\Eric\Documents\Visual Studio 2013\Projects\ice-maze\ice-maze\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -88,6 +88,15 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="debug.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="levels\level_1_floor.iml" />
+    <None Include="levels\level_1_gates.imga" />
+    <None Include="levels\level_1_keys.imk" />
+    <None Include="levels\level_1_units.imu" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

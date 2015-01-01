@@ -82,6 +82,7 @@ class Level
 		bool check_player_gate_collision(Player *player, Gate *gate);
 
 		//Math functions
+		bool circle_line_collision(Player *player, double x_1, double y_1, double x_2, double y_2);
 		double distance(double x_1, double y_1, double x_2, double y_2);
 };
 #endif

@@ -8,6 +8,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <cmath>
+#include <iostream>
+#include <fstream>
+
+extern std::ofstream debug_file;
 
 class Key
 {
@@ -22,6 +27,7 @@ public:
 	double get_radius(){ return this->radius; }
 	int get_id(){ return this->keyid; }
 
+	bool is_pickedup(){ return !(this->showing); }
 	void pickup_key(){ this->showing = false; }
 	void drop_key(){ this->showing = true; }
 private:

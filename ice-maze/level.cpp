@@ -398,9 +398,11 @@ bool Level::check_gate_collision(Player *player){
 
 int Level::check_key_collision(Player *player){
 	for (int i = 0; i < this->num_keys; i++){
-		if (this->check_player_key_collision(player, this->keys[i])){
-			this->keys[i]->pickup_key();
-			return (this->keys[i]->get_id());
+		if (!this->keys[i]->is_pickedup()){
+			if (this->check_player_key_collision(player, this->keys[i])){
+				this->keys[i]->pickup_key();
+				return (this->keys[i]->get_id());
+			}
 		}
 	}
 	return -1;
@@ -415,67 +417,75 @@ bool Level::check_player_key_collision(Player *player, Key *key){
 }
 
 bool Level::check_player_gate_collision(Player *player, Gate *gate){
-/*	//Closest point on collision box
-	double cX, cY;
-
-	double g_x_1 = gate->get_x_1, g_y_1 = gate->get_y_1, g_x_2 = gate->get_x_2, g_y_2 = gate->get_y_2;
-	double g_thickness = gate->get_thickness();
-	double *gate_points = (double *) malloc(4 * sizeof(double));
-	if (g_x_1 == g_x_2){
-		gate_points[0] =
-		gate_points[1] =
-		gate_points[2] =
-		gate_points[3] =
-	}
-	else{
-		gate_points[0] =
-		gate_points[1] =
-		gate_points[2] =
-		gate_points[3] =
-	}
-
-	for (int Bbox = 0; Bbox < B.size(); Bbox++)
-	{
-		//Find closest x offset
-		if (A.x < B[Bbox].x)
-		{
-			cX = B[Bbox].x;
+	if (!gate->is_open()){
+		if (gate->get_x_1() == gate->get_x_2()){
+			if (circle_line_collision(player, gate->get_x_1() + gate->get_thickness(), gate->get_y_1(),
+				gate->get_x_2() - gate->get_thickness(), gate->get_y_1()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_1() + gate->get_thickness(), gate->get_y_2(),
+				gate->get_x_2() - gate->get_thickness(), gate->get_y_2()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_1() + gate->get_thickness(), gate->get_y_1(),
+				gate->get_x_2() + gate->get_thickness(), gate->get_y_2()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_1() - gate->get_thickness(), gate->get_y_1(),
+				gate->get_x_2() - gate->get_thickness(), gate->get_y_2()))
+				return true;
 		}
-		else if (A.x > B[Bbox].x + B[Bbox].w)
-		{
-			cX = B[Bbox].x + B[Bbox].w;
-		}
-		else
-		{
-			cX = A.x;
-		}
-
-		//Find closest y offset
-		if (A.y < B[Bbox].y)
-		{
-			cY = B[Bbox].y;
-		}
-		else if (A.y > B[Bbox].y + B[Bbox].h)
-		{
-			cY = B[Bbox].y + B[Bbox].h;
-		}
-		else
-		{
-			cY = A.y;
-		}
-
-		//If the closest point is inside the circle
-		if (distance(A.x, A.y, cX, cY) < A.r)
-		{
-			//This box and the circle have collided
-			return true;
+		else{
+			if (circle_line_collision(player, gate->get_x_1(), gate->get_y_1() + gate->get_thickness(),
+				gate->get_x_1(), gate->get_y_1() - gate->get_thickness()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_2(), gate->get_y_1() + gate->get_thickness(),
+				gate->get_x_2(), gate->get_y_1() - gate->get_thickness()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_1(), gate->get_y_1() + gate->get_thickness(),
+				gate->get_x_2(), gate->get_y_1() + gate->get_thickness()))
+				return true;
+			if (circle_line_collision(player, gate->get_x_1(), gate->get_y_1() - gate->get_thickness(),
+				gate->get_x_2(), gate->get_y_1() - gate->get_thickness()))
+				return true;
 		}
 	}
-
-	//If the shapes have not collided*/
 	return false;
 }
 
+bool Level::circle_line_collision(Player *player, double x_1, double y_1, double x_2, double y_2){
+	double seg_v_x = x_2 - x_1;
+	double seg_v_y = y_2 - y_1;
+
+	double pt_v_x = player->get_pos_x() - x_1;
+	double pt_v_y = player->get_pos_y() - y_1;
+
+	double seg_v = sqrt(seg_v_x*seg_v_x + seg_v_y*seg_v_y);
+	double seg_v_unit_x = seg_v_x / seg_v;
+	double seg_v_unit_y = seg_v_y / seg_v;
+
+	double proj = pt_v_x*seg_v_unit_x + pt_v_y*seg_v_unit_y;
+
+	double closest_x, closest_y;
+
+	if (proj <= 0){
+		closest_x = x_1;
+		closest_y = y_1;
+	}
+	else if (proj >= seg_v){
+		closest_x = x_2;
+		closest_y = y_2;
+	}
+	else{
+		closest_x = x_1 + seg_v_unit_x*proj;
+		closest_y = y_1 + seg_v_unit_y*proj;
+	}
+
+	double dist_v_x = player->get_pos_x() - closest_x;
+	double dist_v_y = player->get_pos_y() - closest_y;
+
+	if (sqrt(dist_v_x*dist_v_x + dist_v_y*dist_v_y) < player->get_radius()){
+		return true;
+	}
+	return false;
+}
 double Level::distance(double x_1, double y_1, double x_2, double y_2){
 	return sqrt(pow(x_1 - x_2, 2) + pow(y_1 - y_2, 2));
 }

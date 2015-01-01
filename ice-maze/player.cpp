@@ -130,16 +130,18 @@ void Player::update_displacement(){
 }
 
 void Player::reset_displacement(){
-    this->speed -= this->acc;
     this->pos_x -= this->speed*cos(this->direction);
     this->pos_y -= this->speed*sin(this->direction);
+	this->speed -= this->acc;
 }
 
 bool Player::give_item(int id){
 	if (this->num_items == 5)
 		return false;
-	else
+	else{
 		this->items[this->num_items] = id;
+		this->num_items++;
+	}
 	return true;
 }
 

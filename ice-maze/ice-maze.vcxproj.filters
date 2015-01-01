@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\levels">
+      <UniqueIdentifier>{1d0ea8c6-1ab7-488c-b91e-408858310c05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -62,5 +65,24 @@
     <ClInclude Include="window.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="debug.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="levels\level_1_floor.iml">
+      <Filter>Resource Files\levels</Filter>
+    </None>
+    <None Include="levels\level_1_gates.imga">
+      <Filter>Resource Files\levels</Filter>
+    </None>
+    <None Include="levels\level_1_keys.imk">
+      <Filter>Resource Files\levels</Filter>
+    </None>
+    <None Include="levels\level_1_units.imu">
+      <Filter>Resource Files\levels</Filter>
+    </None>
   </ItemGroup>
 </Project>

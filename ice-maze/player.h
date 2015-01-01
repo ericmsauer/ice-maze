@@ -1,13 +1,18 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
+#include <cmath>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <vector>
+
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <GL/glu.h>
-#include <cmath>
 
-#include <stdio.h>
-#include <stdlib.h>
+extern std::ofstream debug_file;
 
 class Player
 {

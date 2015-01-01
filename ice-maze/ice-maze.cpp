@@ -61,8 +61,7 @@ int main(int argc, char **argv){
 
 void init(int argc, char **argv){
 	//Open Debug File
-	debug_file.open("debug.txt", std::ios::app);
-	debug_file << "---------------------------------------------" << std::endl;
+	debug_file.open("debug.txt", std::ios::trunc);
 
 	//Init window
 	window = new Window(1400,700, false);
@@ -209,6 +208,7 @@ void check_player_collision(){
 		player->death(level->get_start_x(), level->get_start_y());
 	if (level->check_gate_collision(player))
 		player->reset_displacement();
-	if ((key = level->check_key_collision(player)) != -1)
+	if ((key = level->check_key_collision(player)) != -1){
 		player->give_item(key);
+	}
 }
