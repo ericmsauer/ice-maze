@@ -1,5 +1,5 @@
 # ice-maze
-Game developed in C++ with OpenGL.
+Game developed in C++ with OpenGL. It helped me understand how Graphic libraries work along with window libraries (SDL2). It contains basic physics and control. Only 1 level. I scraped this project and moved on to developing my own game engine.
 
 # Installation
 This is a Visual Studio projects, just open it and click run. OpenGL packages are included.
