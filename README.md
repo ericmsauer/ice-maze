@@ -10,4 +10,4 @@ This is a Visual Studio projects, just open it and click run. OpenGL packages ar
 - Old fashioned drawing (drawing every frame)
 
 # TODO
-- So many that I don't want to list them, I just started a new project that uses DirectX.
+- So many that I don't want to list them, I just started a new project that is a game engine.
